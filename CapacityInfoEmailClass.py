@@ -100,7 +100,7 @@ for dev in dev_type:
 for host in (arrays):
     conn = paramiko.SSHClient()
     conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    conn.connect(host.ip, username = 'metrics', password = 'hpinvent')
+    conn.connect(host.ip, username = '', password = '')
 
     stdin, stdout, stderr = conn.exec_command('showsys')
 
