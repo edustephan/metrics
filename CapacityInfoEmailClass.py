@@ -18,7 +18,7 @@ class DataCollection:
             ssh = paramiko.SSHClient()
             ssh.load_system_host_keys()
             ssh.set_missing_host_key_policy(paramiko.WarningPolicy())
-            ssh.connect(ip, username="metrics", password="hpinvent")
+            ssh.connect(ip, username="", password="")
             comm = 'showpd -p -devtype ' + dev
             exists = Path("%s.html" % (host))
             if not exists.is_file():
@@ -88,17 +88,8 @@ class Array:
         self.name = name
 
 arrays = []
-arrays.append(Array("10.1.63.130","CW3PAR01"))
-arrays.append(Array("10.1.63.132","CW3PAR02"))
-arrays.append(Array("10.251.38.1","KDC3PAR01"))
-arrays.append(Array("10.251.38.5","KDC3PAR02"))
-arrays.append(Array("10.248.231.23","KDC3PAR03"))
-arrays.append(Array("10.248.231.24","KDC3PAR04"))
-arrays.append(Array("10.248.231.68","KDC3PAR05"))
-arrays.append(Array("10.248.231.191","KDC3PAR06"))
-arrays.append(Array("142.71.40.232","JPN3PAR01"))
-arrays.append(Array("172.19.225.61","RCH3PAR01"))
-arrays.append(Array("172.19.241.22","SMH3PAR01"))
+arrays.append(Array("IP1","ARRAY1"))
+
 
 dev_type = ['FC','SSD','NL']
 for dev in dev_type:
@@ -186,9 +177,9 @@ for host in (arrays):
     with open("C:\\Scripts\\%s.html" % (host.name), 'r') as myfile:
 
         body=myfile.read()
-        address_book = ['eduardo.stephan@phsa.ca', 'ray.fung@phsa.ca', 'ben.haley@phsa.ca', 'chun.su@phsa.ca', 'grace.li@phsa.ca', 'Chris.Chong@hssbc.ca']
+        address_book = ['abc@def.ca']
         msg = MIMEMultipart()    
-        sender = 'eduardo.stephan@phsa.ca'
+        sender = 'abc@def.ca'
         subject = "Capacity Report - %s" % (host.name)
         
         msg['From'] = sender
@@ -196,7 +187,7 @@ for host in (arrays):
         msg['Subject'] = subject
         msg.attach(MIMEText(body, 'html'))
         text=msg.as_string()
-        s = smtplib.SMTP('smtp.healthbc.org')
+        s = smtplib.SMTP('smtp.abc.org')
         s.sendmail(sender,address_book, text)
         s.quit()
 
